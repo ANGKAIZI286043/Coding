@@ -1,0 +1,95 @@
+package com.mycompany.testmyfcstaff2;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author user
+ */
+public class TestMyFCStaff2 {
+
+    public static void main(String[] args) {
+        String name, staff_id;
+        int total_hours;
+        double total_sales;
+        double commision = 0.0;
+	double salary = 0.0;
+	double total_salary = 0.0;
+        
+        
+        Scanner scan = new Scanner (System.in);
+        System.out.print("Enter name: ");
+        name = scan.nextLine();
+        System.out.print("Enter Staff ID: ");
+        staff_id = scan.next();
+        System.out.print("Enter Total Hours Working Per Month: ");
+        total_hours = scan.nextInt();
+        System.out.print("Enter Total Sales Per Month: ");
+        total_sales = scan.nextInt();
+        
+        Staff staffTS = new Staff(name,staff_id,total_hours,total_sales, salary, commision, total_salary);
+        staffTS.calculateBasicWage();
+        staffTS.calculateCommission();
+        staffTS.calculateTotalSalary();
+        //staffTS.displaySalary();
+        System.out.println(staffTS.toString());
+    }
+}
+
+class Staff {
+	private String name;
+        private String staffID;
+        private int total_hours;
+        private double total_sales;
+        
+        //ADDITION CODE
+        private double commision;
+	      private double salary;
+	      private double total_salary;
+        
+	Staff(String nm, String id, int T_hours, double T_Sales, double slry, double cmmsn, double T_Salary){
+		            this.name=nm;
+                this.staffID=id;
+                this.total_hours=T_hours;
+                this.total_sales=T_Sales;
+                this.salary=slry;
+                this.commision=cmmsn;
+                this.total_salary=T_Salary; //this.
+	}
+        
+        public void calculateBasicWage(){
+            salary = total_hours * 8.0;
+        }
+	
+        public void calculateCommission(){
+            if ((total_sales<150.0))
+                commision = 0.0;
+            if ((total_sales>=150.0)&&(total_sales<=300.0))
+                commision = total_sales * 0.05;
+            if ((total_sales>=301.0)&&(total_sales<=500.0))
+                commision = total_sales * 0.1;
+            if ((total_sales>=500.0))
+                commision = total_sales * 0.15;
+        }
+	
+        public void calculateTotalSalary(){
+            total_salary = salary + commision;
+        }
+	
+        /*public void displaySalary(){
+            System.out.println("Staff Name\t: " + name);
+            System.out.println("Staff ID\t: " + staffID);
+            System.out.println("Hours Work\t: " + total_hours);
+            System.out.println("Total Sales\t: " + total_sales);
+            System.out.println("Basic Wage\t: " + salary);
+            System.out.println("Commission\t: " + commision);
+            System.out.println("Total Salary\t: " + total_salary);*/
+            
+        public String toString(){
+        return "Staff Name\t: " + name + "\nStaff ID\t: " + staffID + "\nHours Work\t: " + total_hours 
+                + "\nTotal Sales\t: RM" + total_sales + "\nBasic Wage\t: RM" + salary + "\nCommission\t: RM" + commision
+                + "\nTotal Salary\t: RM" + total_salary;
+
+        }
+
+}
